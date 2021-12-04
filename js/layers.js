@@ -55,10 +55,6 @@ addLayer("pa", {
 	    title: "Partial Increaser",
     	    description: "Base point gain is increased by 2",
     	    cost: new Decimal(50),
-            effect() {
-                return player[this.layer].points.add(1).pow(0.97)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
        	},
     },
 })
