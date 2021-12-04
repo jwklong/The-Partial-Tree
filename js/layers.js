@@ -61,7 +61,7 @@ addLayer("pa", {
 	    	    if (hasUpgrade('pa', 32)) gain = gain.times(upgradeEffect('pa', 32))
                 return gain
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id)) },
         },
         22: {
             title: "Point Booster?",
