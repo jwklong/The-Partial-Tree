@@ -36,7 +36,18 @@ addLayer("pa", {
     	    description: "Partial points boost points",
     	    cost: new Decimal(3),
             effect() {
-                return player[this.layer].points.add(1).pow(0.5)
+		var gain = player[this.layer].points.add(1).pow(0.5)
+		if (hasUpgrade('pa', 13)) gain = gain.times(upgradeEffect('pa', 13))
+                return gain
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+       	},
+	13: {
+	    title: "Point Booster Booster",
+    	    description: "Partial points boost Point Booster",
+    	    cost: new Decimal(10),
+            effect() {
+                return player[this.layer].points.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
        	},
