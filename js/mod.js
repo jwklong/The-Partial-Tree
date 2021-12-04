@@ -13,14 +13,16 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1",
-	name: "Partially Undone",
+	num: "0.1.1",
+	name: "Partially Upgraded",
 }
 
-let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.1</h3><br>
-		- Added Partial layer<br>
-		- Added 4 Partial upgrades.`
+let changelog = `<h1>Changelog:</h1><br><br>
+	<h3>v0.1.1 - Partially Upgraded</h3><br>
+	- Added 3 Partial upgrades<br><br>
+	<h2>v0.1 - Partially Undone</h2><br>
+	- Added Partial layer<br>
+	- Added 4 Partial upgrades`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -43,6 +45,7 @@ function getPointGen() {
 	let gain = new Decimal(1)
 	if (hasUpgrade('pa', 21)) gain = gain.add(2)
 	if (hasUpgrade('pa', 12)) gain = gain.times(upgradeEffect('pa', 12))
+	if (hasUpgrade('pa', 22)) gain = gain.times(upgradeEffect('pa', 22))
 	return gain
 }
 

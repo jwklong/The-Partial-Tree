@@ -15,6 +15,7 @@ addLayer("pa", {
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (hasUpgrade('pa', 31)) mult = mult.times(upgradeEffect('pa', 31))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -26,35 +27,68 @@ addLayer("pa", {
     ],
     layerShown(){return true},
     upgrades: {
-	11: {
-	    title: "Partial Production",
-    	    description: "Start gaining points.",
-    	    cost: new Decimal(1),
+	    11: {
+	        title: "Partial Production",
+        	description: "Start gaining points.",
+         	cost: new Decimal(1),
        	},
-	12: {
-	    title: "Point Booster",
+	    12: {
+	        title: "Point Booster",
     	    description: "Partial points boost points",
     	    cost: new Decimal(3),
             effect() {
-		var gain = player[this.layer].points.add(1).pow(0.5)
-		if (hasUpgrade('pa', 13)) gain = gain.times(upgradeEffect('pa', 13))
+	    	    var gain = player[this.layer].points.add(1).pow(0.5)
+	    	    if (hasUpgrade('pa', 13)) gain = gain.times(upgradeEffect('pa', 13))
                 return gain
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
        	},
-	13: {
-	    title: "Point Booster Booster",
+	    13: {
+	        title: "Point Booster Booster",
     	    description: "Partial points boost Point Booster",
     	    cost: new Decimal(10),
             effect() {
                 return player[this.layer].points.add(1).pow(0.1)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
        	},
-	21: {
-	    title: "Partial Increaser",
-    	    description: "Base point gain is increased by 2",
-    	    cost: new Decimal(50),
-       	},
+        21: {
+            title: "Partial Increaser",
+            description: "Base point gain is increased",
+            cost: new Decimal(50),
+            effect() {
+	    	    var gain = new Decimal(2)
+	    	    if (hasUpgrade('pa', 32)) gain = gain.times(upgradeEffect('pa', 32))
+                return gain
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        22: {
+            title: "Point Booster?",
+            description: "Points boost themselves",
+            cost: new Decimal(125),
+            effect() {
+                return player.points.add(1).pow(0.2)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        31: {
+            title: "Partial Increased",
+            description: "Partial points boost themselves",
+            cost: new Decimal(300),
+            effect() {
+                return player[this.layer].points.add(1).pow(0.1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        32: {
+            title: "Partial Partial",
+            description: "Partial points boost Partial Increaser",
+            cost: new Decimal(850),
+            effect() {
+                return player[this.layer].points.add(1).pow(0.07)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
     },
 })
