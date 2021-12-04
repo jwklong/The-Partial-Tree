@@ -12,7 +12,7 @@ addLayer("pa", {
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 1, // Prestige currency exponent
+    exponent: 2, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         return mult
@@ -25,11 +25,20 @@ addLayer("pa", {
         {key: "p", description: "P: Reset for partial points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
-	upgrades: {
-		11: {
-			title: "Partial Production",
-    		description: "Start gaining points.",
-    		cost: new Decimal(1),
-        },
+    upgrades: {
+	11: {
+	    title: "Partial Production",
+    	    description: "Start gaining points.",
+    	    cost: new Decimal(1),
+       	},
+	12: {
+	    title: "Point Booster",
+    	    description: "Partial points boost points",
+    	    cost: new Decimal(3),
+            effect() {
+                return player[this.layer].points.add(1).pow(0.5)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+       	},
     },
 })
