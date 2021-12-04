@@ -18,6 +18,8 @@ let VERSION = {
 }
 
 let changelog = `<h1>Changelog:</h1><br><br>
+	<h3>v0.1.2 - Partially Achieved</h3><br>
+	- Added 5 Achievements<br><br>
 	<h3>v0.1.1 - Partially Upgraded</h3><br>
 	- Added 3 Partial upgrades<br><br>
 	<h2>v0.1 - Partially Undone</h2><br>

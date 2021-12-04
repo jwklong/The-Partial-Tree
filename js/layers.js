@@ -92,3 +92,51 @@ addLayer("pa", {
         },
     },
 })
+
+addLayer("a", {
+    startData() { return {
+        unlocked: true,
+        points: new Decimal(0),
+    }},
+    color: "yellow",
+    resource: "Achievements", 
+    row: "side",
+    achievements: {
+        11: {
+            name: "Start the game",
+            done() {return player.pa.points.gte("1")},
+            goalTooltip: "Uhm, I think you should do something...",
+            doneTooltip: "You started the game!",
+            onComplete() {player[this.layer].points = player[this.layer].points.add(1)}
+        },
+        12: {
+            name: "Expansion",
+            done() {return hasUpgrade("pa", 13)},
+            goalTooltip: "Get Point Booster Booster.",
+            doneTooltip: "You have bought Point Booster Booster!",
+            onComplete() {player[this.layer].points = player[this.layer].points.add(1)}
+        },
+        13: {
+            name: "Self-Boosted",
+            done() {return hasUpgrade("pa", 22)},
+            goalTooltip: "Get Point Booster?.",
+            doneTooltip: "You have bought Point Booster?",
+            onComplete() {player[this.layer].points = player[this.layer].points.add(1)}
+        },
+        14: {
+            name: "Self-Boosted 2",
+            done() {return hasUpgrade("pa", 31)},
+            goalTooltip: "Get Partial Increased",
+            doneTooltip: "You have bought Partial Increased!",
+            onComplete() {player[this.layer].points = player[this.layer].points.add(1)}
+        },
+        15: {
+            name: "Base Boost",
+            done() {return hasUpgrade("pa", 32)},
+            goalTooltip: "Get Partial Partial.",
+            doneTooltip: "You have bought Partial Partial!",
+            onComplete() {player[this.layer].points = player[this.layer].points.add(1)}
+        },
+    },
+},
+)
