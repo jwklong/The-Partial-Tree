@@ -16,7 +16,7 @@ addLayer("pa", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('pa', 31)) mult = mult.times(upgradeEffect('pa', 31))
-        mult = mult.times(player.wh.points.gte("1") ? new Decimal("2").pow(player.wh.points) : new Decimal("1"))
+        mult = mult.times(player.wh.points.gte("1") ? new Decimal("1.5").pow(player.wh.points) : new Decimal("1"))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -118,7 +118,7 @@ addLayer("wh", {
 		points: new Decimal(0),
     }},
     color: "#00ffa6",
-    effectDescription() {return "multiplying partial point gain by "+format(player.wh.points.gte("1") ? new Decimal("2").pow(player.wh.points) : new Decimal("1"))},
+    effectDescription() {return "multiplying partial point gain by "+format(player.wh.points.gte("1") ? new Decimal("1.5").pow(player.wh.points) : new Decimal("1"))},
     requires: new Decimal(5000), // Can be a function that takes requirement increases into account
     resource: "wholes", // Name of prestige currency
     baseResource: "partial points", // Name of resource prestige is based on
