@@ -70,9 +70,31 @@ addLayer("pa", {
             description: "Points boost themselves",
             cost: new Decimal(125),
             effect() {
-                return player.points.add(1).pow(0.2)
+                var gain = player.points.add(1).pow(0.2)
+                if (hasUpgrade('pa', 23)) gain = gain.times(upgradeEffect('pa', 23))
+                return gain
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        23: {
+            title: "Point Booster+3",
+            description: "Points boost Point Booster?",
+            cost: new Decimal(50000),
+            effect() {
+                return player.points.add(1).pow(0.025)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("wh", 22) },
+        },
+        24: {
+            title: "Partial Pointed",
+            description: "Points boost Partial Partial",
+            cost: new Decimal(250000),
+            effect() {
+                return player.points.add(1).pow(0.05)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("wh", 22) },
         },
         31: {
             title: "Partial Increased",
@@ -90,14 +112,16 @@ addLayer("pa", {
             description: "Partial points boost Partial Increaser",
             cost: new Decimal(850),
             effect() {
-                return player[this.layer].points.add(1).pow(0.07)
+                var gain = player[this.layer].points.add(1).pow(0.07)
+                if (hasUpgrade('pa', 24)) gain = gain.times(upgradeEffect('pa', 24))
+                return gain
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         33: {
             title: "Partial Unlock",
             description: "Multiply Partial Increaser by 2.5, and unlock something new",
-            cost: new Decimal(2500),
+            cost: new Decimal(3000),
             effect() {
                 return new Decimal(2.5)
             },
@@ -113,13 +137,14 @@ addLayer("wh", {
     name: "wholes", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "Wh", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    branches: ["pa"],
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
     }},
     color: "#00ffa6",
     effectDescription() {return "multiplying partial point gain by "+format(player.wh.points.gte("1") ? new Decimal("1.5").pow(player.wh.points) : new Decimal("1"))},
-    requires: new Decimal(5000), // Can be a function that takes requirement increases into account
+    requires: new Decimal(8000), // Can be a function that takes requirement increases into account
     resource: "wholes", // Name of prestige currency
     baseResource: "partial points", // Name of resource prestige is based on
     baseAmount() {return player.pa.points}, // Get the current amount of baseResource
@@ -136,7 +161,7 @@ addLayer("wh", {
     hotkeys: [
         {key: "w", description: "W: Reset for partial points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return hasUpgrade("pa", 33) || player[this.layer].points.gte(1) || hasUpgrade("wh", 11)},
+    layerShown(){return hasUpgrade("pa", 33) || player[this.layer].best.gt(0)},
     upgrades: {
 	    11: {
 	        title: "Part Part Whole",
@@ -153,6 +178,34 @@ addLayer("wh", {
         	description: "Gain 10% of partial points every second",
          	cost: new Decimal(2),
        	},
+        21: {
+	        title: "Challenged",
+        	description: "Unlock a challenge",
+         	cost: new Decimal(3),
+       	},
+        22: {
+	        title: "Partial+",
+        	description: "Unlock new partial upgrades",
+         	cost: new Decimal(5),
+       	},
+    },
+    challenges: {
+        11: {
+            name: "Exceed",
+            completionLimit: 1,
+            challengeDescription() {return "Points are affected by ^0.33"},
+            unlocked() { return hasUpgrade("wh", 21) },
+            goalDescription: 'Have Partial Unlock',
+            canComplete() {
+                return hasUpgrade("pa", 33)
+            },
+            rewardEffect() {
+                return challengeCompletions("wh",11) > 0 ? 1.15 : 1.0;
+            },
+            rewardDisplay() { return "^"+format(this.rewardEffect()) },
+            countsAs: [], // Use this for if a challenge includes the effects of other challenges. Being in this challenge "counts as" being in these.
+            rewardDescription: "Points are affected by ^1.15",
+        },
     },
 })
 
@@ -212,6 +265,18 @@ addLayer("a", {
             name: "Auto-Gain",
             done() {return hasUpgrade("wh", 13)},
             tooltip: "Get Passive Partial.",
+            onComplete() {player[this.layer].points = player[this.layer].points.add(1)}
+        },
+        24: {
+            name: "Exceeded",
+            done() {return challengeCompletions("wh",11) > 0},
+            tooltip: "Complete exceed challenge",
+            onComplete() {player[this.layer].points = player[this.layer].points.add(1)}
+        },
+        25: {
+            name: "Self-Boosted 4",
+            done() {return hasUpgrade("pa", 24)},
+            tooltip: "Get Partial Pointed.",
             onComplete() {player[this.layer].points = player[this.layer].points.add(1)}
         },
     },
