@@ -13,11 +13,14 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.1",
-	name: "Challenging nothing",
+	num: "0.2.2",
+	name: "Partially Achieved 2",
 }
 
 let changelog = `<h1>Changelog:</h1><br><br>
+	<h3>v0.2.2 - Partially Achieved 2</h3><br>
+	- Added Secret Achievements<br>
+	<h6>im not telling you how many haha<h6><br><br>
 	<h3>v0.2.1 - Challenging nothing</h3><br>
 	- Added 2 Achievements<br>
 	- Added 2 Whole upgrades<br>
