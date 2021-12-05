@@ -10,7 +10,8 @@ var layoutInfo = {
 
 
 // A "ghost" layer which offsets other layers in the tree
-addNode("blank", {
+addNode("spook", {
+    row: 1,
     layerShown: "ghost",
 }, 
 )

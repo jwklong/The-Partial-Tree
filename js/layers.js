@@ -192,7 +192,7 @@ addLayer("wh", {
     challenges: {
         11: {
             name: "Exceed",
-            completionLimit: 1,
+            completionLimit: 2,
             challengeDescription() {return "Points are affected by ^0.33"},
             unlocked() { return hasUpgrade("wh", 21) },
             goalDescription: 'Have Partial Unlock',
@@ -270,7 +270,7 @@ addLayer("a", {
         24: {
             name: "Exceeded",
             done() {return challengeCompletions("wh",11) > 0},
-            tooltip: "Complete exceed challenge",
+            tooltip: "Complete Exceed challenge",
             onComplete() {player[this.layer].points = player[this.layer].points.add(1)}
         },
         25: {
@@ -278,6 +278,47 @@ addLayer("a", {
             done() {return hasUpgrade("pa", 24)},
             tooltip: "Get Partial Pointed.",
             onComplete() {player[this.layer].points = player[this.layer].points.add(1)}
+        },
+    },
+},
+)
+
+addLayer("sa", {
+    startData() { return {
+        unlocked: true,
+        points: new Decimal(0),
+    }},
+    color: "orange",
+    resource: "Secret Achievements", 
+    symbol: "A?",
+    row: "side",
+    layerShown(){return player[this.layer].best.gt(0)},
+    achievements: {
+        11: {
+            name: "Unlock Secret Achievents!",
+            done() {return player[this.layer].points.gte("1")},
+            tooltip: "Hmm...",
+        },
+        21: {
+            name: "No more exceeding",
+            done() {return challengeCompletions("wh",11) > 1},
+            goalTooltip: "???",
+            doneTooltip: "Complete exceed challenge twice",
+            onComplete() {player[this.layer].points = player[this.layer].points.add(1)},
+        },
+        22: {
+            name: "Inflation",
+            done() {return upgradeEffect('pa', 22).gte("1000")},
+            goalTooltip: "???",
+            doneTooltip: "Point Booster? multiplier goes to 1000x",
+            onComplete() {player[this.layer].points = player[this.layer].points.add(1)},
+        },
+        23: {
+            name: "Relocked",
+            done() {return canReset("wh") && !hasUpgrade("pa", 33)},
+            goalTooltip: "???",
+            doneTooltip: "Be able to whole reset without Partial Unlock",
+            onComplete() {player[this.layer].points = player[this.layer].points.add(1)},
         },
     },
 },
