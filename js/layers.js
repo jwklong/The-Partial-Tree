@@ -80,7 +80,7 @@ addLayer("pa", {
             cost: new Decimal(300),
             effect() {
                 var gain = player[this.layer].points.add(1).pow(0.1)
-                if (hasUpgrade('wh', 12)) gain = gain.times(upgradeEffect('pa', 32))
+                if (hasUpgrade('wh', 12) && hasUpgrade('pa', 32)) gain = gain.times(upgradeEffect('pa', 32))
                 return gain
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -151,7 +151,7 @@ addLayer("wh", {
         13: {
 	        title: "Passive Partial",
         	description: "Gain 10% of partial points every second",
-         	cost: new Decimal(3),
+         	cost: new Decimal(2),
        	},
     },
 })
