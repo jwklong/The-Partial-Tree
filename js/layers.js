@@ -159,7 +159,7 @@ addLayer("wh", {
     },
     row: 1, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "w", description: "W: Reset for partial points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "w", description: "W: Reset for wholes", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return hasUpgrade("pa", 33) || player[this.layer].best.gt(0)},
     upgrades: {
