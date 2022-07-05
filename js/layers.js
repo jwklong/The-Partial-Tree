@@ -36,6 +36,7 @@ addLayer("ma", {
 				var x = new Decimal(1).mul(getBuyableAmount(this.layer, this.id))
 				return x
 			}
+			unlocked() {return getBuyableAmount(this.layer, 11).gte(1)}
 		},
 	},
 	color: "#999",
