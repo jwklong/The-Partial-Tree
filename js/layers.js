@@ -14,7 +14,7 @@ addLayer("ma", {
 				return new Decimal(10).pow(fp.pow(1.15)).mul(10)
 			},
 			display() { return `Rank ${!getBuyableAmount(this.layer, this.id).eq(0) ? getBuyableAmount(this.layer, this.id).toStringWithDecimalPlaces(4) : "0"}` },
-			canAfford() { return player[this.layer].points.gte(this.cost()) },
+			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
 				player[this.layer].points = player[this.layer].points.sub(this.cost())
 				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
