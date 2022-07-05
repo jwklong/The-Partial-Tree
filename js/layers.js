@@ -13,7 +13,7 @@ addLayer("ma", {
 				var fp = new Decimal(1)
 				return new Decimal(10).pow(getBuyableAmount(this.layer, this.id).div(fp).pow(1.15)).mul(10)
 			},
-			display() { return `Rank ${!getBuyableAmount(this.layer, this.id).eq(0) ? getBuyableAmount(this.layer, this.id).toStringWithDecimalPlaces(4) : "0"}` },
+			display() { return `Rank ${!getBuyableAmount(this.layer, this.id).eq(0) ? getBuyableAmount(this.layer, this.id).toStringWithDecimalPlaces(4) : "0"}\n\nCost: ${this.cost().toStringWithDecimalPlaces(4)}` },
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
 				player.points = player.points.sub(this.cost())
