@@ -9,11 +9,23 @@ addLayer("ma", {
 	}},
 	buyables: {
 		11: {
-			cost(x) {
+			cost() {
 				var fp = new Decimal(1)
 				return new Decimal(10).pow(getBuyableAmount(this.layer, this.id).div(fp).pow(1.15)).mul(10)
 			},
-			display() { return `Rank ${!getBuyableAmount(this.layer, this.id).eq(0) ? getBuyableAmount(this.layer, this.id).toStringWithDecimalPlaces(4) : "0"}\n\nCost: ${this.cost().toStringWithDecimalPlaces(4)}` },
+			display() { return `Rank ${!getBuyableAmount(this.layer, this.id).eq(0) ? getBuyableAmount(this.layer, this.id).toStringWithDecimalPlaces(3) : "0"}\n\nCost: ${this.cost().toStringWithDecimalPlaces(3)}` },
+			canAfford() { return player.points.gte(this.cost()) },
+			buy() {
+				player.points = player.points.sub(this.cost())
+				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+			},
+		},
+		21: {
+			cost() {
+				var x = new Decimal(10).mul(new Decimal(1.5).pow(getBuyableAmount(this.layer, this.id)))
+				return x
+			},
+			display() { return `Muscler [${!getBuyableAmount(this.layer, this.id).eq(0) ? getBuyableAmount(this.layer, this.id).toStringWithDecimalPlaces(3) : "0"}]\n\nCost: ${this.cost().toStringWithDecimalPlaces(3)}` },
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
 				player.points = player.points.sub(this.cost())
