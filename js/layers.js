@@ -16,12 +16,12 @@ addLayer("ma", {
 			display() { return `Rank ${!getBuyableAmount(this.layer, this.id).eq(0) ? getBuyableAmount(this.layer, this.id).toStringWithDecimalPlaces(4) : "0"}` },
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
-				player[this.layer].points = player[this.layer].points.sub(this.cost())
+				player.points = player.points.sub(this.cost())
 				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
 			},
 		},
 	},
-	color: "#222",
+	color: "#999",
 	row: 0, // Row the layer is in on the tree (0 is the first row)
 	layerShown(){return true}
 })
