@@ -16,7 +16,7 @@ addLayer("ma", {
 			display() { return `Rank ${getBuyableAmount(this.layer, this.id).toStringWithDecimalPlaces(3)}\n\nCost: ${this.cost().toStringWithDecimalPlaces(3)}` },
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
-				player.points = player.points.sub(this.cost())
+				player.points = 0
 				setBuyableAmount(this.layer, 21, new Decimal(0))
 				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
 			},
