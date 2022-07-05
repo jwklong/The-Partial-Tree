@@ -9,8 +9,11 @@ addLayer("ma", {
 	}},
 	buyables: {
 		11: {
-			cost(x) { return new Decimal(1).mul(x) },
-			display() { return "Blah" },
+			cost(x) {
+				var fp = new Decimal(1)
+				return new Decimal(10).pow(fp.pow(1.15)).mul(10)
+			},
+			display() { return `Rank ${!getBuyableAmount.eq(0) ? getBuyableAmount.toStringWithDecimalPlaces(4) : "0"}` },
 			canAfford() { return player[this.layer].points.gte(this.cost()) },
 			buy() {
 				player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -18,7 +21,7 @@ addLayer("ma", {
 			},
 		},
 	},
-	color: "#4BDC13",
+	color: "#222",
 	row: 0, // Row the layer is in on the tree (0 is the first row)
 	layerShown(){return true}
 })
