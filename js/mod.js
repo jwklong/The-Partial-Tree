@@ -43,6 +43,7 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
+	gain.add(buyableEffect("ma", 21))
 	return gain
 }
 
