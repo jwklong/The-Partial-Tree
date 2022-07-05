@@ -17,7 +17,7 @@ addLayer("ma", {
 				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
 			},
 		},
-	}
+	},
 	color: "#4BDC13",
 	row: 0, // Row the layer is in on the tree (0 is the first row)
 	layerShown(){return true}
