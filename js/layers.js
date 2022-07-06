@@ -11,7 +11,7 @@ addLayer("ma", {
 		11: {
 			cost() {
 				var fp = new Decimal(1)
-				fp.mul(1/0.8)
+				if (getBuyableAmount(this.layer, 12).gte(1)) {fp = fp.mul(1/0.8)}
 				return new Decimal(10).pow(getBuyableAmount(this.layer, this.id).div(fp).pow(1.15)).mul(10)
 			},
 			display() {
