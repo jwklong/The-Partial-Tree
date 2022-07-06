@@ -105,8 +105,8 @@ addLayer("ma", {
 			effect() {
 				var y = new Decimal(2)
 				if (getBuyableAmount(this.layer, 11).gte(5)) {y = y.add(new Decimal(0.025).mul(getBuyableAmount(this.layer, this.id)))}
+				y = y.pow(buyableEffect(this.layer, 23))
 				var x = y.mul(getBuyableAmount(this.layer, this.id))
-				x = x.pow(buyableEffect(this.layer, 23))
 				return x.add(1)
 			},
 			unlocked() {return getBuyableAmount(this.layer, 11).gte(2)},
