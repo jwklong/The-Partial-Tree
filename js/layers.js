@@ -13,7 +13,15 @@ addLayer("ma", {
 				var fp = new Decimal(1)
 				return new Decimal(10).pow(getBuyableAmount(this.layer, this.id).div(fp).pow(1.15)).mul(10)
 			},
-			display() { return `Rank ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: ${format(this.cost())}` },
+			display() {
+				var effectNames = {
+					1: "Unlock Muscler"
+					2: "Unlock Booster and reduce Muscler scaling by 20%"
+					3: "Unlock Stronger, reduce Booster scaling by 20% and Muscler boosts itself"
+					4: "Reduce Stronger scaling by 20%"
+				}
+				return `Rank ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: ${format(this.cost())}\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id)] ? effectNames[getBuyableAmount(this.layer, this.id)] : "None"}` 
+			},
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
 				player.points = new Decimal(0)
@@ -30,6 +38,7 @@ addLayer("ma", {
 		21: {
 			cost() {
 				var x = new Decimal(10).mul(new Decimal(1.5).pow(getBuyableAmount(this.layer, this.id)))
+				if (getBuyableAmount(this.layer, 11).gte(2)) {x = x.pow(0.8)}
 				return x
 			},
 			display() { return `Muscler [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: +${format(this.effect())}` },
@@ -39,6 +48,8 @@ addLayer("ma", {
 				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
 			},
 			effect() {
+				var y = new Decimal(1)
+				if (getBuyableAmount(this.layer, 11).gte(3)) {y = y.add(new Decimal(0.05).mul(getBuyableAmount(this.layer, this.id)))}
 				var x = new Decimal(1).mul(getBuyableAmount(this.layer, this.id))
 				x = x.mul(buyableEffect(this.layer, 22))
 				return x
@@ -52,6 +63,7 @@ addLayer("ma", {
 		22: {
 			cost() {
 				var x = new Decimal(100).mul(new Decimal(4).pow(getBuyableAmount(this.layer, this.id)))
+				if (getBuyableAmount(this.layer, 11).gte(3)) {x = x.pow(0.8)}
 				return x
 			},
 			display() { return `Booster [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: x${format(this.effect())}` },
@@ -74,6 +86,7 @@ addLayer("ma", {
 		23: {
 			cost() {
 				var x = new Decimal(1000).mul(new Decimal(9).pow(getBuyableAmount(this.layer, this.id)))
+				if (getBuyableAmount(this.layer, 11).gte(4)) {x = x.pow(0.8)}
 				return x
 			},
 			display() { return `Stronger [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: ^${format(this.effect())}${buyableEffect(this.layer, 23).gt(10) ? " (softcapped)" : ""}` },
