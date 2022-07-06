@@ -20,7 +20,7 @@ addLayer("ma", {
 					3: "Unlock Stronger, reduce Booster scaling by 20% and Muscler boosts itself",
 					4: "Reduce Stronger scaling by 20%",
 				}
-				return `Rank ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: ${format(this.cost())}\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] ? effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] : "None"}` 
+				return `Rank ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: ${format(this.cost())}g\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] ? effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] : "None"}` 
 			},
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
@@ -43,7 +43,7 @@ addLayer("ma", {
 				var effectNames = {
 					1: "not made",
 				}
-				return `Tier ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: ${format(this.cost())}\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] ? effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] : "None"}` 
+				return `Tier ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: Rank ${formatWhole(this.cost())}\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] ? effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] : "None"}` 
 			},
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
@@ -67,7 +67,7 @@ addLayer("ma", {
 				var x = new Decimal(10).mul(inc)
 				return x
 			},
-			display() { return `Muscler [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: +${format(this.effect())}` },
+			display() { return `Muscler [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}g\nEffect: +${format(this.effect())}` },
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
 				player.points = player.points.sub(this.cost())
@@ -93,7 +93,7 @@ addLayer("ma", {
 				var x = new Decimal(100).mul(inc)
 				return x
 			},
-			display() { return `Booster [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: x${format(this.effect())}` },
+			display() { return `Booster [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}g\nEffect: x${format(this.effect())}` },
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
 				player.points = player.points.sub(this.cost())
@@ -117,7 +117,7 @@ addLayer("ma", {
 				var x = new Decimal(1000).mul(inc)
 				return x
 			},
-			display() { return `Stronger [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: ^${format(this.effect())}${buyableEffect(this.layer, 23).gt(10) ? " (softcapped)" : ""}` },
+			display() { return `Stronger [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}g\nEffect: ^${format(this.effect())}${buyableEffect(this.layer, 23).gt(10) ? " (softcapped)" : ""}` },
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
 				player.points = player.points.sub(this.cost())
