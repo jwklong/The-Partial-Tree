@@ -35,6 +35,31 @@ addLayer("ma", {
 				height: "75px"
 			}
 		},
+		12: {
+			cost() {
+				return getBuyableAmount(this.layer, this.id).add(2).pow(2).floor()
+			},
+			display() {
+				var effectNames = {
+					1: "not made",
+				}
+				return `Tier ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: ${format(this.cost())}\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] ? effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] : "None"}` 
+			},
+			canAfford() { return player.points.gte(this.cost()) },
+			buy() {
+				player.points = new Decimal(0)
+				setBuyableAmount(this.layer, 21, new Decimal(0))
+				setBuyableAmount(this.layer, 22, new Decimal(0))
+				setBuyableAmount(this.layer, 23, new Decimal(0))
+				setBuyableAmount(this.layer, 11, new Decimal(0))
+				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+			},
+			style: {
+				width: "175px",
+				height: "75px"
+			},
+			unlocked() {return getBuyableAmount(this.layer, 11).gte(3)},
+		},
 		21: {
 			cost() {
 				var inc = new Decimal(1.5).pow(getBuyableAmount(this.layer, this.id))
