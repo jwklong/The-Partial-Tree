@@ -2722,6 +2722,14 @@ for (var i = 0; i < 10; ++i)
     Decimal.prototype.greaterThan = function (other) {
       return this.cmp(other) > 0;
     };
+	Decimal.prototype.softcap = function (start, power, mode) {
+    	var x = this.clone()
+    	if (x.gte(start)) {
+        	if ([0, "pow"].includes(mode)) x = x.div(start).pow(power).mul(start)
+        	if ([1, "mul"].includes(mode)) x = x.sub(start).div(power).add(start)
+    	}
+    	return x
+	}
 
     return Decimal;
   }();
