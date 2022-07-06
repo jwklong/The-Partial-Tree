@@ -23,7 +23,7 @@ addLayer("ma", {
 			},
 			style: {
 				width: "175px",
-				height: "75"
+				height: "75px"
 			}
 		},
 		21: {
@@ -45,7 +45,7 @@ addLayer("ma", {
 			unlocked() {return getBuyableAmount(this.layer, 11).gte(1)},
 			style: {
 				width: "175px",
-				height: "75"
+				height: "75px"
 			}
 		},
 		22: {
@@ -66,7 +66,7 @@ addLayer("ma", {
 			unlocked() {return getBuyableAmount(this.layer, 11).gte(2)},
 			style: {
 				width: "175px",
-				height: "75"
+				height: "75px"
 			}
 		},
 	},
