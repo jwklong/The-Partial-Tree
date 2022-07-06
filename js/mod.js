@@ -1,7 +1,7 @@
 let modInfo = {
 	name: "Incremental Mass Tree",
-	id: "mymod",
-	author: "nobody",
+	id: "imtree",
+	author: "jwklong",
 	pointsName: "grams",
 	modFiles: ["layers.js", "tree.js"],
 
