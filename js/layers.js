@@ -45,6 +45,7 @@ addLayer("ma", {
 			display() {
 				var effectNames = {
 					1: "Reduce Rank requirements by 20%",
+					2: "Raise mass gain by 1.15",
 				}
 				return `Tier ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: Rank ${formatWhole(this.cost())}\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] ? effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] : "None"}` 
 			},
