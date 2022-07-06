@@ -44,6 +44,7 @@ function getPointGen() {
 
 	let gain = new Decimal(1)
 	gain = gain.add(buyableEffect("ma", 21))
+	if (getBuyableAmount(this.layer, 11).gte(6)) {gain = gain.mul(getBuyableAmount(this.layer, 11).add(1).pow(2))}
 	return gain
 }
 
