@@ -94,7 +94,7 @@ addLayer("ma", {
 				return x
 			},
 			display() { return `Booster [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}g\nEffect: x${format(this.effect())}` },
-			canAfford() { return player.points.gte(this.cost()) },
+			canAfford() { return getBuyableAmount(this.layer, 11).gte(this.cost()) },
 			buy() {
 				player.points = player.points.sub(this.cost())
 				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
