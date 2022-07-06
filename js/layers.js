@@ -37,8 +37,9 @@ addLayer("ma", {
 		},
 		21: {
 			cost() {
-				var x = new Decimal(10).mul(new Decimal(1.5).pow(getBuyableAmount(this.layer, this.id)))
-				if (getBuyableAmount(this.layer, 11).gte(2)) {x = x.pow(0.8)}
+				var inc = new Decimal(1.5).pow(getBuyableAmount(this.layer, this.id))
+				if (getBuyableAmount(this.layer, 11).gte(2)) {inc = inc.pow(0.8)}
+				var x = new Decimal(10).mul(inc)
 				return x
 			},
 			display() { return `Muscler [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: +${format(this.effect())}` },
@@ -62,8 +63,9 @@ addLayer("ma", {
 		},
 		22: {
 			cost() {
-				var x = new Decimal(100).mul(new Decimal(4).pow(getBuyableAmount(this.layer, this.id)))
-				if (getBuyableAmount(this.layer, 11).gte(3)) {x = x.pow(0.8)}
+				var inc = new Decimal(4).pow(getBuyableAmount(this.layer, this.id))
+				if (getBuyableAmount(this.layer, 11).gte(3)) {inc = inc.pow(0.8)}
+				var x = new Decimal(100).mul(inc)
 				return x
 			},
 			display() { return `Booster [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: x${format(this.effect())}` },
@@ -85,8 +87,9 @@ addLayer("ma", {
 		},
 		23: {
 			cost() {
-				var x = new Decimal(1000).mul(new Decimal(9).pow(getBuyableAmount(this.layer, this.id)))
-				if (getBuyableAmount(this.layer, 11).gte(4)) {x = x.pow(0.8)}
+				var inc = new Decimal(9).pow(getBuyableAmount(this.layer, this.id))
+				if (getBuyableAmount(this.layer, 11).gte(4)) {inc = inc.pow(0.8)}
+				var x = new Decimal(1000).mul(inc)
 				return x
 			},
 			display() { return `Stronger [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: ^${format(this.effect())}${buyableEffect(this.layer, 23).gt(10) ? " (softcapped)" : ""}` },
