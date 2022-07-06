@@ -11,6 +11,7 @@ addLayer("ma", {
 		11: {
 			cost() {
 				var fp = new Decimal(1)
+				fp.mul(1/0.8)
 				return new Decimal(10).pow(getBuyableAmount(this.layer, this.id).div(fp).pow(1.15)).mul(10)
 			},
 			display() {
@@ -41,7 +42,7 @@ addLayer("ma", {
 			},
 			display() {
 				var effectNames = {
-					1: "not made",
+					1: "Reduce Rank requirements by 20%",
 				}
 				return `Tier ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: Rank ${formatWhole(this.cost())}\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] ? effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] : "None"}` 
 			},
