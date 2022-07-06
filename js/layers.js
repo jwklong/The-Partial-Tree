@@ -18,8 +18,13 @@ addLayer("ma", {
 			buy() {
 				player.points = new Decimal(0)
 				setBuyableAmount(this.layer, 21, new Decimal(0))
+				setBuyableAmount(this.layer, 22, new Decimal(0))
 				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
 			},
+			style: {
+				width: "175px",
+				height: "75"
+			}
 		},
 		21: {
 			cost() {
@@ -34,9 +39,35 @@ addLayer("ma", {
 			},
 			effect() {
 				var x = new Decimal(1).mul(getBuyableAmount(this.layer, this.id))
+				x.mul(buyableEffect(this.layer, 22))
 				return x
 			},
-			unlocked() {return getBuyableAmount(this.layer, 11).gte(1)}
+			unlocked() {return getBuyableAmount(this.layer, 11).gte(1)},
+			style: {
+				width: "175px",
+				height: "75"
+			}
+		},
+		22: {
+			cost() {
+				var x = new Decimal(100).mul(new Decimal(4).pow(getBuyableAmount(this.layer, this.id)))
+				return x
+			},
+			display() { return `Booster [${getBuyableAmount(this.layer, this.id).toStringWithDecimalPlaces(3)}]\n\nCost: ${this.cost().toStringWithDecimalPlaces(3)}\nEffect: x${this.effect().toStringWithDecimalPlaces(3)}` },
+			canAfford() { return player.points.gte(this.cost()) },
+			buy() {
+				player.points = player.points.sub(this.cost())
+				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+			},
+			effect() {
+				var x = new Decimal(2).mul(getBuyableAmount(this.layer, this.id))
+				return x
+			},
+			unlocked() {return getBuyableAmount(this.layer, 11).gte(2)},
+			style: {
+				width: "175px",
+				height: "75"
+			}
 		},
 	},
 	color: "#999",
