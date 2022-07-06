@@ -20,7 +20,7 @@ addLayer("ma", {
 					3: "Unlock Stronger, reduce Booster scaling by 20% and Muscler boosts itself",
 					4: "Reduce Stronger scaling by 20%",
 				}
-				return `Rank ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: ${format(this.cost())}\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id).toNumber()] ? effectNames[getBuyableAmount(this.layer, this.id).toNumber()] : "None"}` 
+				return `Rank ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: ${format(this.cost())}\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] ? effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] : "None"}` 
 			},
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
