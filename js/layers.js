@@ -76,7 +76,7 @@ addLayer("ma", {
 				var x = new Decimal(1000).mul(new Decimal(9).pow(getBuyableAmount(this.layer, this.id)))
 				return x
 			},
-			display() { return `Stronger [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: ^${format(this.effect())}` },
+			display() { return `Stronger [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: ^${format(this.effect())}${buyableEffect(this.layer, 23).gt(10) ? " (softcapped)" : ""}` },
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
 				player.points = player.points.sub(this.cost())
@@ -84,7 +84,7 @@ addLayer("ma", {
 			},
 			effect() {
 				var x = new Decimal(1).mul(getBuyableAmount(this.layer, this.id))
-				return x.add(1)
+				return x.add(1).softcap(10, 0.5, 0)
 			},
 			unlocked() {return getBuyableAmount(this.layer, 11).gte(3)},
 			style: {
