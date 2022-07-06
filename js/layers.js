@@ -45,7 +45,7 @@ addLayer("ma", {
 				}
 				return `Tier ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: Rank ${formatWhole(this.cost())}\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] ? effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] : "None"}` 
 			},
-			canAfford() { return player.points.gte(this.cost()) },
+			canAfford() { return getBuyableAmount(this.layer, 11).gte(this.cost()) },
 			buy() {
 				player.points = new Decimal(0)
 				setBuyableAmount(this.layer, 21, new Decimal(0))
@@ -94,7 +94,7 @@ addLayer("ma", {
 				return x
 			},
 			display() { return `Booster [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}g\nEffect: x${format(this.effect())}` },
-			canAfford() { return getBuyableAmount(this.layer, 11).gte(this.cost()) },
+			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
 				player.points = player.points.sub(this.cost())
 				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
