@@ -20,6 +20,8 @@ addLayer("ma", {
 					2: "Unlock Booster and reduce Muscler scaling by 20%",
 					3: "Unlock Stronger, reduce Booster scaling by 20% and Muscler boosts itself",
 					4: "Reduce Stronger scaling by 20%",
+					5: "Booster boosts itself",
+					6: "Mass gain is boosted by (R+1)^2",
 				}
 				return `Rank ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: ${format(this.cost())}g\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] ? effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] : "None"}` 
 			},
@@ -77,7 +79,7 @@ addLayer("ma", {
 			effect() {
 				var y = new Decimal(1)
 				if (getBuyableAmount(this.layer, 11).gte(3)) {y = y.add(new Decimal(0.05).mul(getBuyableAmount(this.layer, this.id)))}
-				var x = new Decimal(1).mul(getBuyableAmount(this.layer, this.id))
+				var x = y.mul(getBuyableAmount(this.layer, this.id))
 				x = x.mul(buyableEffect(this.layer, 22))
 				return x
 			},
@@ -101,7 +103,9 @@ addLayer("ma", {
 				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
 			},
 			effect() {
-				var x = new Decimal(2).mul(getBuyableAmount(this.layer, this.id))
+				var y = new Decimal(2)
+				if (getBuyableAmount(this.layer, 11).gte(5)) {y = y.add(new Decimal(0.025).mul(getBuyableAmount(this.layer, this.id)))}
+				var x = y.mul(getBuyableAmount(this.layer, this.id))
 				x = x.pow(buyableEffect(this.layer, 23))
 				return x.add(1)
 			},
