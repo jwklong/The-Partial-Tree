@@ -58,7 +58,7 @@ addLayer("ma", {
 				width: "175px",
 				height: "75px"
 			},
-			unlocked() {return getBuyableAmount(this.layer, 11).gte(3)},
+			unlocked() {return getBuyableAmount(this.layer, 11).gte(3) || getBuyableAmount(this.layer, this.id).gt(0)},
 		},
 		21: {
 			cost() {
