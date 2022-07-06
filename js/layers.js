@@ -15,10 +15,10 @@ addLayer("ma", {
 			},
 			display() {
 				var effectNames = {
-					1: "Unlock Muscler"
-					2: "Unlock Booster and reduce Muscler scaling by 20%"
-					3: "Unlock Stronger, reduce Booster scaling by 20% and Muscler boosts itself"
-					4: "Reduce Stronger scaling by 20%"
+					1: "Unlock Muscler",
+					2: "Unlock Booster and reduce Muscler scaling by 20%",
+					3: "Unlock Stronger, reduce Booster scaling by 20% and Muscler boosts itself",
+					4: "Reduce Stronger scaling by 20%",
 				}
 				return `Rank ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: ${format(this.cost())}\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id)] ? effectNames[getBuyableAmount(this.layer, this.id)] : "None"}` 
 			},
