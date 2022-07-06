@@ -39,7 +39,7 @@ addLayer("ma", {
 			},
 			effect() {
 				var x = new Decimal(1).mul(getBuyableAmount(this.layer, this.id))
-				x.mul(buyableEffect(this.layer, 22))
+				x = x.mul(buyableEffect(this.layer, 22))
 				return x
 			},
 			unlocked() {return getBuyableAmount(this.layer, 11).gte(1)},
