@@ -13,12 +13,13 @@ addLayer("ma", {
 				var fp = new Decimal(1)
 				return new Decimal(10).pow(getBuyableAmount(this.layer, this.id).div(fp).pow(1.15)).mul(10)
 			},
-			display() { return `Rank ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: ${formatWhole(this.cost())}` },
+			display() { return `Rank ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: ${format(this.cost())}` },
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
 				player.points = new Decimal(0)
 				setBuyableAmount(this.layer, 21, new Decimal(0))
 				setBuyableAmount(this.layer, 22, new Decimal(0))
+				setBuyableAmount(this.layer, 23, new Decimal(0))
 				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
 			},
 			style: {
@@ -31,7 +32,7 @@ addLayer("ma", {
 				var x = new Decimal(10).mul(new Decimal(1.5).pow(getBuyableAmount(this.layer, this.id)))
 				return x
 			},
-			display() { return `Muscler [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${formatWhole(this.cost())}\nEffect: +${formatWhole(this.effect())}` },
+			display() { return `Muscler [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: +${format(this.effect())}` },
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
 				player.points = player.points.sub(this.cost())
@@ -53,7 +54,7 @@ addLayer("ma", {
 				var x = new Decimal(100).mul(new Decimal(4).pow(getBuyableAmount(this.layer, this.id)))
 				return x
 			},
-			display() { return `Booster [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${formatWhole(this.cost())}\nEffect: x${formatWhole(this.effect())}` },
+			display() { return `Booster [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: x${format(this.effect())}` },
 			canAfford() { return player.points.gte(this.cost()) },
 			buy() {
 				player.points = player.points.sub(this.cost())
@@ -61,9 +62,31 @@ addLayer("ma", {
 			},
 			effect() {
 				var x = new Decimal(2).mul(getBuyableAmount(this.layer, this.id))
+				x = x.pow(buyableEffect(this.layer, 23))
 				return x.add(1)
 			},
 			unlocked() {return getBuyableAmount(this.layer, 11).gte(2)},
+			style: {
+				width: "175px",
+				height: "75px"
+			}
+		},
+		23: {
+			cost() {
+				var x = new Decimal(1000).mul(new Decimal(9).pow(getBuyableAmount(this.layer, this.id)))
+				return x
+			},
+			display() { return `Stronger [${formatWhole(getBuyableAmount(this.layer, this.id))}]\n\nCost: ${format(this.cost())}\nEffect: ^${format(this.effect())}` },
+			canAfford() { return player.points.gte(this.cost()) },
+			buy() {
+				player.points = player.points.sub(this.cost())
+				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+			},
+			effect() {
+				var x = new Decimal(1).mul(getBuyableAmount(this.layer, this.id))
+				return x.add(1)
+			},
+			unlocked() {return getBuyableAmount(this.layer, 11).gte(3)},
 			style: {
 				width: "175px",
 				height: "75px"
