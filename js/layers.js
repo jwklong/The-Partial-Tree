@@ -22,6 +22,7 @@ addLayer("ma", {
 					4: "Reduce Stronger scaling by 20%",
 					5: "Booster boosts itself",
 					6: "Mass gain is boosted by (R+1)^2",
+					13: "Triple mass gain",
 				}
 				return `Rank ${formatWhole(getBuyableAmount(this.layer, this.id))}\n\nCost: ${format(this.cost())}g\nEffect: ${effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] ? effectNames[getBuyableAmount(this.layer, this.id).toNumber()+1] : "None"}` 
 			},
